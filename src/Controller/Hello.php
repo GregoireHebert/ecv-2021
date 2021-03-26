@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class Hello
 {
@@ -14,6 +15,9 @@ class Hello
         $user->firstname = 'Greg';
         $user->lastname = 'Hébert';
 
-        require (__DIR__.'/../View/Hello.php');
+        ob_start();
+        require(__DIR__ . '/../../View/Hello.php');
+
+        return new Response(ob_get_clean());
     }
 }
