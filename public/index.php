@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 
 $request = Request::createFromGlobals();
 
-$HelloRoute = new Route('/hello', ['_controller'=>Hello::class]);
+$HelloRoute = new Route('/hello/{prenom}', ['_controller'=>Hello::class]);
 $FaqRoute = new Route('/faq', ['_controller'=>Faq::class]);
 
 $routeCollection = new RouteCollection();
@@ -26,10 +26,15 @@ $context = new RequestContext('/');
 $urlMatcher = new UrlMatcher($routeCollection, $context);
 
 $parameters = $urlMatcher->match($request->getPathInfo());
+['_controller' => $controller, '_route' => $route] = $parameters;
+unset(
+    $parameters['_controller'],
+    $parameters['_route']
+);
 
 try {
-    $controller = new $parameters['_controller'];
-    $response = $controller();
+    $controller = new $controller;
+    $response = $controller($request,...$parameters);
 } catch (Exception $exception) {
     $response = new Response('404');
 }
