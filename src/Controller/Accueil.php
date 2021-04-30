@@ -11,10 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 final class Accueil
 {
     /**
-     * @Route(path="/{name}", name="accueil")
+     * @Route(path="/", name="accueil")
      */
-    public function toto(Request $request, string $name)
+    public function sayHello()
     {
-        return '';//new Response("coucou $name");
+        return new Response("coucou");
     }
 }
