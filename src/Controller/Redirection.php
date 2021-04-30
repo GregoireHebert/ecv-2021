@@ -14,16 +14,6 @@ use Symfony\Component\Routing\Router;
 class Redirection extends AbstractController
 {
     /**
-     * @Route(path="/login", name="login")
-     */
-    public function login()
-    {
-        if (true) { // TODO test connecté
-            return $this->redirectToRoute('dashboard', [], 308);
-        }
-    }
-
-    /**
      * @Route(path="/dashboard", name="dashboard")
      */
     public function dashboard()
